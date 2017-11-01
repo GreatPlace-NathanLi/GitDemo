@@ -8,20 +8,29 @@ import com.shanbao.client.Account.AccountType;
 public class SBDistributeManager {
 	
 	public static void main(String[] args) {
-		System.out.println("Hello");
+		
+		SBRule rule = new SBRule(0, 100, 0.3, 20, 5, 18);
 		
 		//create account
-		Account upperAccount = new Account("账户0", "20170501", AccountType.传递使者);
+//		Account upperAccount = new Account("账户0", "20170501", AccountType.传递使者);
 		
-		Account myAccount = new Account("账户1", "20170601", AccountType.传递使者);
-		myAccount.setUpperAccount(upperAccount);
+		Account bisAccount = new Account("商家账户0", "20170501", AccountType.商家, rule);
+		SBDistributePool bisSbPool = new SBDistributePool(rule);
+		List<SBDistributeUnit> bisSbDistributeUnits = bisSbPool.getSBDistributeUnits();
+		bisSbDistributeUnits.set(19, new SBDistributeUnit(19,5,0,false));
+		bisAccount.setSbDistributePool(bisSbPool);
+		
+		Account myAccount = new Account("账户1", "20170601", AccountType.传递使者, rule);
+//		myAccount.setUpperAccount(upperAccount);
+		myAccount.setBisAccount(bisAccount);
 		myAccount.setActiveSBAmount(1000.0);
 		myAccount.setDisactiveSBAmount(5000.0);
 		
-		SBDistributePool sbPool = new SBDistributePool(20, 5);
+		SBDistributePool sbPool = new SBDistributePool(rule);
 		List<SBDistributeUnit> sbDistributeUnits = sbPool.getSBDistributeUnits();
 		sbDistributeUnits.set(19, new SBDistributeUnit(19,5,1000,false));
 		myAccount.setSbDistributePool(sbPool);
+		
 		
 		
 		//create 
@@ -37,9 +46,7 @@ public class SBDistributeManager {
 		int days = 100;
 		
 		int day = 20170000;
-		SBTrade sbTrade = new SBTrade(day, 1000, 1000, 0, "初投");
-		sbPool.getSBDistributeUnits().get(0).addSbTrade(sbTrade);
-		
+		myAccount.addTrade(day, 10000, "初投");		
 		
 		//复投频率
 		int ft = 5;
@@ -54,8 +61,7 @@ public class SBDistributeManager {
 			sbPool.rollDay();
 			//复投
 			if (i%ft==0) {
-				SBTrade sbTrade1 = new SBTrade(day+i, 10, 0, 0, "复投");
-				sbPool.getSBDistributeUnits().get(0).addSbTrade(sbTrade1);
+				myAccount.addTrade(day+i, 10000, "复投");
 			}
 			
 		}

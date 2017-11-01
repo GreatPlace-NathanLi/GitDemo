@@ -9,6 +9,7 @@ public class SBDistributeUnit {
 	private int cyclicLength;
 	private double sbAmount;
 	private boolean distributeFlag;
+	private double totalSbAmount;
 	
 	private List<SBTrade> sbTradeList;
 	
@@ -16,7 +17,7 @@ public class SBDistributeUnit {
 		sbTradeList = new LinkedList<SBTrade>();
 	}
 	
-	public SBDistributeUnit(int level, int cyclicLength, int sbAmount, boolean distributeFlag) {
+	public SBDistributeUnit(int level, int cyclicLength, double sbAmount, boolean distributeFlag) {
 		this();
 		this.level = level;
 		this.cyclicLength = cyclicLength;
@@ -33,6 +34,18 @@ public class SBDistributeUnit {
 			return toDistributeAmount;
 		} else {
 			return 0;
+		}
+	}
+	
+	public double getTotalSb() {
+		if (sbTradeList!=null && sbTradeList.size()>0) {
+			double toDistributeAmount = 0;
+			for(SBTrade trade : sbTradeList) {
+				toDistributeAmount+=trade.getRemainActiveSbAmount();
+			}
+			return toDistributeAmount + sbAmount;
+		} else {
+			return sbAmount;
 		}
 	}
 	
@@ -122,12 +135,26 @@ public class SBDistributeUnit {
 		this.sbTradeList = sbTradeList;
 	}
 
+	/**
+	 * @return the totalSbAmount
+	 */
+	public double getTotalSbAmount() {
+		return totalSbAmount;
+	}
+
+	/**
+	 * @param totalSbAmount the totalSbAmount to set
+	 */
+	public void setTotalSbAmount(double totalSbAmount) {
+		this.totalSbAmount = totalSbAmount;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "SBDistributeUnit [level=" + level + ", cyclicLength=" + cyclicLength + ", sbAmount=" + sbAmount
+		return "SBDistributeUnit [level=" + level + ", totalSbAmount=" + getTotalSb() + ", sbAmount=" + sbAmount
 				+ ", distributeFlag=" + distributeFlag + ", sbTradeList=" + sbTradeList + "]";
 	}
 

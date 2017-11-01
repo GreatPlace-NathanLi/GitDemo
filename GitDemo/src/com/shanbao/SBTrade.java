@@ -24,6 +24,16 @@ public class SBTrade {
 		this.remainActiveSbAmount = newSbAmount + activatedSbAmount;
 	}
 	
+	public SBTrade(int tradeDate, double newSbAmount, String type) {
+		super();
+		this.tradeDate = tradeDate;
+		this.newSbAmount = newSbAmount;
+		this.activatedSbAmount = 0;
+		this.dayCount = 0;
+		this.type = type;
+		this.remainActiveSbAmount = newSbAmount + activatedSbAmount;
+	}
+	
 	public void rollDay() {
 		dayCount++;
 	}
@@ -68,6 +78,7 @@ public class SBTrade {
 	 */
 	public void setActivatedSbAmount(double activatedSbAmount) {
 		this.activatedSbAmount = activatedSbAmount;
+		this.remainActiveSbAmount = this.newSbAmount + activatedSbAmount;
 	}
 
 	/**
