@@ -69,7 +69,7 @@ public class SBDistributePool {
 	}
 	
 	private void resetUnit(SBDistributeUnit unit, double toResetAmount) {
-		System.out.println("resetUnit");
+		//System.out.println("resetUnit");
 		double initSbAmount = unit.getSbAmount();
 		double remainAmount = toResetAmount;
 		if(initSbAmount>=toResetAmount) {
@@ -84,7 +84,7 @@ public class SBDistributePool {
 	}
 	
 	private void resetTrades(List<SBTrade> tradeList, double toResetAmount) {
-		System.out.println("resetTrades");
+		//System.out.println("resetTrades");
 		double remainAmount = toResetAmount;
 		for(int i=0; i<tradeList.size(); i++) {
 			SBTrade trade = tradeList.get(i);

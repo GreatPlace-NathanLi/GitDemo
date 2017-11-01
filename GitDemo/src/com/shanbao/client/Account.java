@@ -58,7 +58,7 @@ public class Account {
 		double newSbAmount = rule.getSbAmountByMoneyAmount(moneyAmount, type);
 		SBTrade sbTrade = new SBTrade(dateInInt, newSbAmount, status);
 		double activatedSbAmount = sbDistributePool.addTrade(sbTrade);
-		System.out.println("Type " + type + "- 新增善宝：" + String.format("%.4f", newSbAmount) + ", 带出善宝：" + String.format("%.4f", activatedSbAmount));
+		//System.out.println("Type " + type + "- 新增善宝：" + String.format("%.4f", newSbAmount) + ", 带出善宝：" + String.format("%.4f", activatedSbAmount));
 		
 		if (bisAccount!=null) {
 			bisAccount.addTrade(dateInInt, moneyAmount, status);
